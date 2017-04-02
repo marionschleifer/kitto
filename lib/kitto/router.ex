@@ -76,6 +76,10 @@ defmodule Kitto.Router do
 
     conn
   end
+  
+  get "nodeping" do
+    send_resp(conn, 200, "Nodeping test")
+  end
 
   get "widgets", do: conn |> render_json(Notifier.cache)
   get "widgets/:id", do: conn |> render_json(Notifier.cache[String.to_atom(id)])
