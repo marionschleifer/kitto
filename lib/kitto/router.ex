@@ -78,14 +78,21 @@ defmodule Kitto.Router do
   end
   
   get "nodeping" do
-    send_resp(conn, 200, "Nodeping test")
+    # {:ok, body, conn} = read_body(conn)
+
+    Notifier.broadcast!("text", conn.body_params["hello"])
+
+    conn |> send_resp(204, "")
   end
 
   get "widgets", do: conn |> render_json(Notifier.cache)
   get "widgets/:id", do: conn |> render_json(Notifier.cache[String.to_atom(id)])
 
   post "widgets/:id", private: %{authenticated: true} do
-    {:ok, body, conn} = read_body(conn)
+    {:ok, body, conn} = 
+    
+    
+    (conn)
 
     Notifier.broadcast!(id, body |> Poison.decode!)
 
